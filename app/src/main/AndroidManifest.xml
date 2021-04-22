@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ListaSeries">
         <activity
-            android:name=".DetailShowActivity"
+            android:name=".ui.ShowDetail.DetailShowActivity"
             android:label="@string/title_activity_detail_show"
             android:theme="@style/Theme.ListaSeries.NoActionBar"></activity>
         <activity

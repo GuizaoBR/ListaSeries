@@ -45,6 +45,18 @@ class WebClient (
         )
     }
 
+    fun getShow(
+            id: Long,
+            success: (shows: Show?) -> Unit,
+            failure: (erro: String?) -> Unit
+    ) {
+        excuteApi(
+                service.getShow(id),
+                success,
+                failure
+        )
+    }
+
 
 
 

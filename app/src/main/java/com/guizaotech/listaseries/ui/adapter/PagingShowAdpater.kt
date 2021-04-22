@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.guizaotech.listaseries.DetailShowActivity
+import com.guizaotech.listaseries.ui.ShowDetail.DetailShowActivity
 import com.guizaotech.listaseries.R
 import com.guizaotech.listaseries.databinding.ShowItemBinding
 import com.guizaotech.listaseries.model.Show
 import com.squareup.picasso.Picasso
 
-class PagingShowAdpater: PagedListAdapter<Show, PagingShowAdpater.ShowViewHolder>(DIFF_CALLBACK) {
+class PagingShowAdpater(): PagedListAdapter<Show, PagingShowAdpater.ShowViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object :
@@ -54,7 +54,7 @@ class PagingShowAdpater: PagedListAdapter<Show, PagingShowAdpater.ShowViewHolder
                 if (position != RecyclerView.NO_POSITION) {
                     val selctedShow: Show? = getItem(position)
                     val intent = Intent(it.context, DetailShowActivity::class.java)
-                    intent.putExtra("show", selctedShow!!.id)
+                    intent.putExtra("showId", selctedShow!!.id)
                     it.context.startActivity(intent)
                 }
             }
