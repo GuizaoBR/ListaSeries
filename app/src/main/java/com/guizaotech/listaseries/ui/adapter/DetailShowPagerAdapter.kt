@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.guizaotech.listaseries.ui.ShowDetail.DetailShowSummaryFragment
 import com.guizaotech.listaseries.ui.dashboard.DashboardFragment
 
 private val TAB_TITLES = arrayOf(
@@ -20,7 +21,13 @@ class DetailShowPagerAdapter(private val activity: Context, fm: FragmentManager)
     }
 
     override fun getItem(position: Int): Fragment {
-       return DashboardFragment()
+        return when (position) {
+            0 ->
+                DetailShowSummaryFragment()
+            else ->
+                DashboardFragment()
+        }
+
     }
 
     override fun getPageTitle(position: Int): CharSequence {

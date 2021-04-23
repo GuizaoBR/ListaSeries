@@ -67,9 +67,15 @@ class PagingShowAdpater(): PagedListAdapter<Show, PagingShowAdpater.ShowViewHold
             if (show != null) {
                 showItemBinding.textViewTitulo.text = show.name
                 showItemBinding.textViewGenres.text = show.genres.joinToString(", ")
-                Picasso.get().load(show.image.original)
-                    .fit()
-                    .into(showItemBinding.showImage);
+                if(show.image.original != ""){
+                    Picasso.get().load(show.image.original)
+                        .fit()
+                        .into(showItemBinding.showImage);
+                } else if (show.image.medium != ""){
+                    Picasso.get().load(show.image.medium)
+                        .fit()
+                        .into(showItemBinding.showImage)
+                }
 
             } else {
                 showItemBinding.textViewTitulo.text = "Carregando..."

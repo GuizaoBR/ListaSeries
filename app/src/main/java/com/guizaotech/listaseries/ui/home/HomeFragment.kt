@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
         viewModel.getShowPagedList()!!.observe(viewLifecycleOwner, Observer { liveData ->
             liveData?.let {
                 shows = it

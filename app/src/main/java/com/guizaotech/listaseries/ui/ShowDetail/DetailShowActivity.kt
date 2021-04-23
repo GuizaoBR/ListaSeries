@@ -50,6 +50,7 @@ class DetailShowActivity : AppCompatActivity() {
                         .into(binding!!.imageView3)
 
                 binding!!.toolbarLayout.title = show!!.name
+                binding!!.textViewGenres.text = show!!.genres.joinToString(", ")
             }
         })
 
