@@ -1,6 +1,7 @@
 package com.guizaotech.listaseries.retrofit.service.webClient
 
 import androidx.paging.PageKeyedDataSource
+import com.guizaotech.listaseries.model.Episode
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.retrofit.AppRetrofit
 import com.guizaotech.listaseries.retrofit.service.ApiService
@@ -36,7 +37,7 @@ class WebClient (
     fun getAllShow(
         page: Int,
         success: (shows: List<Show>?) -> Unit,
-        failure: (erro: String?) -> Unit
+        failure: (error: String?) -> Unit
     ) {
         excuteApi(
             service.getShows(page),
@@ -48,10 +49,22 @@ class WebClient (
     fun getShow(
             id: Long,
             success: (shows: Show?) -> Unit,
-            failure: (erro: String?) -> Unit
+            failure: (error: String?) -> Unit
     ) {
         excuteApi(
                 service.getShow(id),
+                success,
+                failure
+        )
+    }
+
+    fun getEpisodes(
+            idShow: Long,
+            success: (episodes: List<Episode>?) -> Unit,
+            failure: (error: String?) -> Unit
+    ) {
+        excuteApi(
+                service.getEpisodes(idShow),
                 success,
                 failure
         )
