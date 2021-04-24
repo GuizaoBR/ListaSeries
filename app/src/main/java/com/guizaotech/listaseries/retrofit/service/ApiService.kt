@@ -18,4 +18,7 @@ interface ApiService {
     @GET("/episodes/{id}")
     fun getEpisode(@Path("id") id: Long): Call<Episode>
 
+    @GET("shows")
+    fun getShowsSearch(@Query("q") search: String): Call<List<Show>>
+
 }

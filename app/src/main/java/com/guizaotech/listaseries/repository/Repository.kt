@@ -10,6 +10,20 @@ class Repository(
     private val webClient: WebClient
 ){
 
+    fun getAllShow(page: Int,
+                   success: (shows: List<Show>?) -> Unit,
+                   failure: (error: String?) -> Unit) {
+        webClient.getAllShow(page, success, failure)
+
+    }
+
+    fun showSeach(showName: String,
+                   success: (shows: List<Show>?) -> Unit,
+                   failure: (error: String?) -> Unit) {
+        webClient.showSearch(showName, success, failure)
+
+    }
+
     fun getShow(id: Long): LiveData<Show?>{
         val liveData: MutableLiveData<Show?> = MutableLiveData<Show?>()
         webClient.getShow(id, success = {show ->
@@ -32,4 +46,16 @@ class Repository(
         })
         return liveData
     }
+
+    fun getEpisode(id: Long): LiveData<Episode?> {
+        val liveData: MutableLiveData<Episode?> = MutableLiveData<Episode?>()
+        webClient.getEpisode(id, sucess = {episode ->
+            liveData.value = episode
+        }, failure = {
+
+        })
+        return  liveData
+    }
+
+
 }

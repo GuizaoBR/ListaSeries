@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.guizaotech.listaseries.ui.ShowDetail.DetailShowActivity
+import com.guizaotech.listaseries.ui.showDetail.DetailShowActivity
 import com.guizaotech.listaseries.R
 import com.guizaotech.listaseries.databinding.ShowItemBinding
 import com.guizaotech.listaseries.model.Show

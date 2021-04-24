@@ -1,4 +1,4 @@
-package com.guizaotech.listaseries.ui.ShowDetail
+package com.guizaotech.listaseries.ui.showDetail
 
 import android.app.Application
 import androidx.lifecycle.LiveData

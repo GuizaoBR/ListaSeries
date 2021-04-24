@@ -1,10 +1,9 @@
-package com.guizaotech.listaseries.ui.ShowDetail
+package com.guizaotech.listaseries.ui.showDetail
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.guizaotech.listaseries.databinding.ActivityDetailShowBinding
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.repository.Repository

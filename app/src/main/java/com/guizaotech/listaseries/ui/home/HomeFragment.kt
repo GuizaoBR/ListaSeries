@@ -2,9 +2,13 @@ package com.guizaotech.listaseries.ui.home
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.guizaotech.listaseries.R
 import com.guizaotech.listaseries.databinding.FragmentHomeBinding
 import com.guizaotech.listaseries.model.Show
+import com.guizaotech.listaseries.repository.Repository
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
 import com.guizaotech.listaseries.ui.adapter.PagingShowAdpater
 
@@ -31,7 +36,8 @@ class HomeFragment : Fragment() {
 
     private val viewModel by lazy {
         val webClient = WebClient()
-        val factory = HomeViewModelFactory(webClient, this.requireActivity().application)
+        val repository = Repository(webClient)
+        val factory = HomeViewModelFactory(repository, this.requireActivity().application)
         val provider = ViewModelProviders.of(this, factory)
         provider.get(HomeViewModel::class.java)
     }
@@ -39,7 +45,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         viewModel.getShowPagedList()!!.observe(viewLifecycleOwner, Observer { liveData ->
             liveData?.let {
@@ -48,8 +54,26 @@ class HomeFragment : Fragment() {
 
             }
         })
-        binding = FragmentHomeBinding.inflate(layoutInflater)
 
+
+
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding?.editTextSearch?.setOnEditorActionListener { textView, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.getShows(textView.text.toString())!!.observe(viewLifecycleOwner, Observer { liveData ->
+                    liveData?.let {
+                        shows = it
+                        showOnRecyclerView()
+
+                    }
+
+                })
+                true
+            } else {
+
+                false
+            }
+        }
         return binding!!.root
     }
 
@@ -57,7 +81,6 @@ class HomeFragment : Fragment() {
         adapter.submitList(shows)
         binding!!.litstShowRecyclerview.adapter = adapter
         binding!!.litstShowRecyclerview.itemAnimator = DefaultItemAnimator()
-//        binding!!.litstShowRecyclerview.layoutManager = LinearLayoutManager(this.context)
 
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             binding!!.litstShowRecyclerview.layoutManager = GridLayoutManager(this.context, 2)

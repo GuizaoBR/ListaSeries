@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ListaSeries">
         <activity
-            android:name=".ui.ShowDetail.DetailShowActivity"
-            android:label="@string/title_activity_detail_show"
+            android:name=".ui.episodeDetail.EpisodeDetailActivity"
+            android:label="@string/title_activity_episode_detail"
             android:theme="@style/Theme.ListaSeries.NoActionBar"></activity>
+        <activity
+            android:name=".ui.showDetail.DetailShowActivity"
+            android:label="@string/title_activity_detail_show"
+            android:theme="@style/Theme.ListaSeries.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

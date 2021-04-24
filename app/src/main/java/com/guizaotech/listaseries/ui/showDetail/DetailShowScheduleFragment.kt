@@ -1,19 +1,14 @@
-package com.guizaotech.listaseries.ui.ShowDetail
+package com.guizaotech.listaseries.ui.showDetail
 
 import android.os.Bundle
-import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.guizaotech.listaseries.databinding.FragmentDetailShowScheduleBinding
-import com.guizaotech.listaseries.databinding.FragmentDetailShowSummaryBinding
 import com.guizaotech.listaseries.model.Show
-import com.guizaotech.listaseries.repository.Repository
-import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
 
 class DetailShowScheduleFragment : Fragment() {
     private val showId: Long by lazy {

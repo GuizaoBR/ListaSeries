@@ -1,6 +1,5 @@
 package com.guizaotech.listaseries.retrofit.service.webClient
 
-import androidx.paging.PageKeyedDataSource
 import com.guizaotech.listaseries.model.Episode
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.retrofit.AppRetrofit
@@ -14,7 +13,7 @@ private const val FAILURE = "Requisição não sucedida"
 class WebClient (
     val service: ApiService = AppRetrofit().service
 )  {
-    private fun <T> excuteApi(
+    private fun <T> executeApi(
         call: Call<T>,
         success: (item: T?) -> Unit,
         failure: (error: String?) -> Unit
@@ -39,7 +38,7 @@ class WebClient (
         success: (shows: List<Show>?) -> Unit,
         failure: (error: String?) -> Unit
     ) {
-        excuteApi(
+        executeApi(
             service.getShows(page),
             success,
             failure
@@ -51,7 +50,7 @@ class WebClient (
             success: (shows: Show?) -> Unit,
             failure: (error: String?) -> Unit
     ) {
-        excuteApi(
+        executeApi(
                 service.getShow(id),
                 success,
                 failure
@@ -63,14 +62,28 @@ class WebClient (
             success: (episodes: List<Episode>?) -> Unit,
             failure: (error: String?) -> Unit
     ) {
-        excuteApi(
+        executeApi(
                 service.getEpisodes(idShow),
                 success,
                 failure
         )
     }
 
+    fun getEpisode(id: Long, sucess: (episode: Episode?) -> Unit, failure: (error: String?) -> Unit) {
+        executeApi(
+                service.getEpisode(id),
+                sucess,
+                failure
+        )
+    }
 
+    fun showSearch(showName: String, sucess: (listShow: List<Show>?) -> Unit, failure: (error: String?) -> Unit) {
+        executeApi(
+                service.getShowsSearch(showName),
+                sucess,
+                failure
+        )
+    }
 
 
 }

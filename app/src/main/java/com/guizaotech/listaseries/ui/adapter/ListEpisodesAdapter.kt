@@ -1,19 +1,37 @@
 package com.guizaotech.listaseries.ui.adapter
 
+import android.content.Intent
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.guizaotech.listaseries.databinding.EpisodeItemBinding
 import com.guizaotech.listaseries.model.Episode
+import com.guizaotech.listaseries.ui.episodeDetail.EpisodeDetailActivity
 import com.squareup.picasso.Picasso
 
-class ListEpisodesAdapter(private val episodes: List<Episode>): RecyclerView.Adapter<ListEpisodesAdapter.ListEpisodesViewHolder>() {
+class ListEpisodesAdapter(
+        private val episodes: List<Episode>
+        /*var onItemClickListener: (episode: Episode) -> Unit = {}*/): RecyclerView.Adapter<ListEpisodesAdapter.ListEpisodesViewHolder>() {
 
     class ListEpisodesViewHolder(private val binding: EpisodeItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
+        private lateinit var episode: Episode
+
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION && ::episode.isInitialized ) {
+                    val selctedEpisode: Episode =  episode
+                    val intent = Intent(it.context, EpisodeDetailActivity::class.java)
+                    intent.putExtra("episodeId", selctedEpisode.id)
+                    it.context.startActivity(intent)
+                }
+            }
+        }
 
         fun bind(episode: Episode) {
+            this.episode = episode
             try {
                 if(episode.image.original != ""){
                     Picasso.get().load(episode.image.original)
@@ -41,6 +59,7 @@ class ListEpisodesAdapter(private val episodes: List<Episode>): RecyclerView.Ada
 
                 return ListEpisodesViewHolder(binding)
             }
+
         }
     }
 

@@ -2,13 +2,13 @@ package com.guizaotech.listaseries.pagedListDataSource
 
 import android.app.Application
 import androidx.paging.PageKeyedDataSource
-import com.guizaotech.listaseries.model.Resource
 import com.guizaotech.listaseries.model.Show
-import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
+import com.guizaotech.listaseries.repository.Repository
 
 class ShowDataSource(
-    private  val webClient: WebClient,
-    private val application: Application
+        private val repository: Repository,
+        private val application: Application,
+        private val search: String
 ):   PageKeyedDataSource<Int, Show>() {
 
     override fun loadInitial(
@@ -17,23 +17,39 @@ class ShowDataSource(
     ) {
         val page: Int = 1
 
-        webClient.getAllShow(page = page,
-            success = { result ->
+        if (search == ""){
+
+            repository.getAllShow(page = page,
+                    success = { result ->
+                        //liveData.value = Resource(data = result)
+                        callback.onResult(
+                                result!!,  // List of data items
+                                0,  // Position of first item
+                                400,  // Total number of items that can be fetched from api
+                                null,  // Previous page. `null` if there's no previous page
+                                page // Next Page (Used at the next request). Return `null` if this is the last page.
+                        )
+                    },
+                    failure = { result ->
+                        var erro = result
+                    })
+        } else {
+            repository.showSeach(search,
+                    success = { result ->
                 //liveData.value = Resource(data = result)
                 callback.onResult(
-                    result!!,  // List of data items
-                    0,  // Position of first item
-                    400,  // Total number of items that can be fetched from api
-                    null,  // Previous page. `null` if there's no previous page
-                    page // Next Page (Used at the next request). Return `null` if this is the last page.
+                        result!!,  // List of data items
+                        0,  // Position of first item
+                        400,  // Total number of items that can be fetched from api
+                        null,  // Previous page. `null` if there's no previous page
+                        page // Next Page (Used at the next request). Return `null` if this is the last page.
                 )
             },
-            failure = { result ->
-                var erro = result
-            //liveData.value = Resource(data = null, error = result)
-            })
+                    failure = { result ->
+                        var erro = result
+                    })
+        }
 
-        // Result can be passed asynchronously
 
 
     }
@@ -43,18 +59,35 @@ class ShowDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Show>) {
         val page: Int = params.key
-        webClient.getAllShow(page = page,
-            success = { result ->
-                //liveData.value = Resource(data = result)
+        if (search == ""){
 
-                callback.onResult(
-                    result!!,  // List of data items
-                    // Next Page key (Used at the next request). Return `null` if this is the last page.
-                    page + 1
-                )
-            },
-            failure = { result ->
-                //liveData.value = Resource(data = null, error = result)
-            })
+            repository.getAllShow(page = page,
+                    success = { result ->
+                        //liveData.value = Resource(data = result)
+
+                        callback.onResult(
+                                result!!,  // List of data items
+                                // Next Page key (Used at the next request). Return `null` if this is the last page.
+                                page + 1
+                        )
+                    },
+                    failure = { result ->
+                        //liveData.value = Resource(data = null, error = result)
+                    })
+        } else {
+            repository.showSeach(search,
+                    success = { result ->
+                        //liveData.value = Resource(data = result)
+
+                        callback.onResult(
+                                result!!,  // List of data items
+                                // Next Page key (Used at the next request). Return `null` if this is the last page.
+                                page + 1
+                        )
+                    },
+                    failure = { result ->
+                        //liveData.value = Resource(data = null, error = result)
+                    })
+        }
     }
 }

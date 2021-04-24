@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.guizaotech.listaseries.ui.ShowDetail.DetailShowEpisodesFragment
-import com.guizaotech.listaseries.ui.ShowDetail.DetailShowScheduleFragment
-import com.guizaotech.listaseries.ui.ShowDetail.DetailShowSummaryFragment
-import com.guizaotech.listaseries.ui.dashboard.DashboardFragment
+import com.guizaotech.listaseries.ui.showDetail.DetailShowEpisodesFragment
+import com.guizaotech.listaseries.ui.showDetail.DetailShowScheduleFragment
+import com.guizaotech.listaseries.ui.showDetail.DetailShowSummaryFragment
 
 private val TAB_TITLES = arrayOf(
         "Resumo",
