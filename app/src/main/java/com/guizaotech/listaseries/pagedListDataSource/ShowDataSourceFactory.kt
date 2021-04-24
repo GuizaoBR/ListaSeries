@@ -20,6 +20,5 @@ class ShowDataSourceFactory(
         return showDataSource!!
     }
 
-    fun getShowDataSourceLiveData(): MutableLiveData<ShowDataSource> =  mutableLiveData
 
 }

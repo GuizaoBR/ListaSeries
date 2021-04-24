@@ -13,6 +13,7 @@ import com.guizaotech.listaseries.R
 import com.guizaotech.listaseries.databinding.ShowItemBinding
 import com.guizaotech.listaseries.model.Show
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class PagingShowAdpater(): PagedListAdapter<Show, PagingShowAdpater.ShowViewHolder>(DIFF_CALLBACK) {
 
@@ -67,15 +68,20 @@ class PagingShowAdpater(): PagedListAdapter<Show, PagingShowAdpater.ShowViewHold
             if (show != null) {
                 showItemBinding.textViewTitulo.text = show.name
                 showItemBinding.textViewGenres.text = show.genres.joinToString(", ")
-                if(show.image.original != ""){
-                    Picasso.get().load(show.image.original)
-                        .fit()
-                        .into(showItemBinding.showImage);
-                } else if (show.image.medium != ""){
-                    Picasso.get().load(show.image.medium)
-                        .fit()
-                        .into(showItemBinding.showImage)
+                try {
+                    if(show.image.original != ""){
+                        Picasso.get().load(show.image.original)
+                                .fit()
+                                .into(showItemBinding.showImage);
+                    } else if (show.image.medium != ""){
+                        Picasso.get().load(show.image.medium)
+                                .fit()
+                                .into(showItemBinding.showImage)
+                    }
+                } catch (ex: Exception){
+
                 }
+
 
             } else {
                 showItemBinding.textViewTitulo.text = "Carregando..."
