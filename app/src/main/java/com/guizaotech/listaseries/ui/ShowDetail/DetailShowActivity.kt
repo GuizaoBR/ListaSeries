@@ -1,21 +1,15 @@
 package com.guizaotech.listaseries.ui.ShowDetail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.guizaotech.listaseries.R
 import com.guizaotech.listaseries.databinding.ActivityDetailShowBinding
-import com.guizaotech.listaseries.databinding.FragmentHomeBinding
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.repository.Repository
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
 import com.guizaotech.listaseries.ui.adapter.DetailShowPagerAdapter
-import com.guizaotech.listaseries.ui.adapter.PagingShowAdpater
-import com.guizaotech.listaseries.ui.home.HomeViewModel
-import com.guizaotech.listaseries.ui.home.HomeViewModelFactory
 import com.squareup.picasso.Picasso
 
 class DetailShowActivity : AppCompatActivity() {
@@ -29,12 +23,18 @@ class DetailShowActivity : AppCompatActivity() {
     private var binding: ActivityDetailShowBinding? = null
 
 
-    private val viewModel by lazy {
+//    private val viewModel by lazy {
+//        val webClient = WebClient()
+//        val repository = Repository(webClient)
+//        val factory = DetailShowViewModelFactory(repository, this.application, showId)
+//        val provider = ViewModelProviders.of(this, factory)
+//        provider.get(DetailShowViewModel::class.java)
+//    }
+
+    private val viewModel: DetailShowViewModel by viewModels {
         val webClient = WebClient()
         val repository = Repository(webClient)
-        val factory = DetailShowViewModelFactory(repository, this.application, showId)
-        val provider = ViewModelProviders.of(this, factory)
-        provider.get(DetailShowViewModel::class.java)
+        DetailShowViewModelFactory(repository, this.application, showId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

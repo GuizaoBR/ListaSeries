@@ -6,16 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.guizaotech.listaseries.R
-import com.guizaotech.listaseries.databinding.ActivityDetailShowBinding
 import com.guizaotech.listaseries.databinding.FragmentDetailShowSummaryBinding
-import com.guizaotech.listaseries.databinding.FragmentHomeBinding
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.repository.Repository
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
-import com.squareup.picasso.Picasso
 
 class DetailShowSummaryFragment : Fragment() {
     private val showId: Long by lazy {
@@ -26,14 +23,14 @@ class DetailShowSummaryFragment : Fragment() {
     private var binding: FragmentDetailShowSummaryBinding? = null
 
 
-    private val viewModel by lazy {
-        val webClient = WebClient()
-        val repository = Repository(webClient)
-        val factory = DetailShowViewModelFactory(repository, this.requireActivity().application, showId)
-        val provider = ViewModelProviders.of(this, factory)
-        provider.get(DetailShowViewModel::class.java)
-    }
-
+//    private val viewModel by lazy {
+//        val webClient = WebClient()
+//        val repository = Repository(webClient)
+//        val factory = DetailShowViewModelFactory(repository, this.requireActivity().application, showId)
+//        val provider = ViewModelProviders.of(this, factory)
+//        provider.get(DetailShowViewModel::class.java)
+//    }
+private val viewModel: DetailShowViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
