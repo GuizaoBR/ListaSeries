@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAllShow() {
-        viewModel.getShowPagedList()!!.observe(viewLifecycleOwner, Observer { liveData ->
+        viewModel.getShows()!!.observe(viewLifecycleOwner, Observer { liveData ->
             liveData?.let {
                 shows = it
                 showOnRecyclerView()
@@ -74,10 +74,10 @@ class HomeFragment : Fragment() {
 
     private fun configSearchEditText() {
         editTextSearchTextChanged()
-        editTextSeachAction()
+        editTextSearchAction()
     }
 
-    private fun editTextSeachAction() {
+    private fun editTextSearchAction() {
         binding?.editTextSearch?.setOnEditorActionListener { textView, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 getSearchedShow(textView)

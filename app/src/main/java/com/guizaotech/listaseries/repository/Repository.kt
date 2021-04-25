@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.guizaotech.listaseries.model.Episode
 import com.guizaotech.listaseries.model.Resource
+import com.guizaotech.listaseries.model.SearchShow
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
 
@@ -19,7 +20,7 @@ class Repository(
     }
 
     fun showSeach(showName: String,
-                   success: (shows: List<Show>?) -> Unit,
+                   success: (shows: List<SearchShow>?) -> Unit,
                    failure: (error: String?) -> Unit) {
         webClient.showSearch(showName, success, failure)
 

@@ -60,13 +60,19 @@ class DetailShowEpisodesFragment : Fragment() {
     }
 
     private fun createList() {
-        val seasonSelected = binding?.spinnerSeason?.selectedItem.toString().split("ª")[0].toInt()
-        val listEpisodesBySeason = episodes?.filter { episode -> episode.season == seasonSelected }
-        val adapter = ListEpisodesAdapter(listEpisodesBySeason!!)
-        binding?.listtEpisodesRecyclerview?.adapter = adapter
-        binding?.listtEpisodesRecyclerview?.itemAnimator = DefaultItemAnimator()
-        binding?.listtEpisodesRecyclerview?.layoutManager = LinearLayoutManager(this.requireContext())
-        adapter.notifyDataSetChanged()
+        if (!episodes.isNullOrEmpty()){
+            val seasonSelected = binding?.spinnerSeason?.selectedItem.toString().split("ª")[0].toInt()
+            val listEpisodesBySeason = episodes?.filter { episode -> episode.season == seasonSelected }
+            val adapter = ListEpisodesAdapter(listEpisodesBySeason!!)
+            binding?.listtEpisodesRecyclerview?.adapter = adapter
+            binding?.listtEpisodesRecyclerview?.itemAnimator = DefaultItemAnimator()
+            binding?.listtEpisodesRecyclerview?.layoutManager = LinearLayoutManager(this.requireContext())
+            adapter.notifyDataSetChanged()
+        }
+        else{
+            binding?.listtEpisodesRecyclerview?.visibility = View.INVISIBLE
+            binding?.textViewNoEpisodes?.visibility = View.VISIBLE
+        }
     }
 
     private fun createSpinner() {

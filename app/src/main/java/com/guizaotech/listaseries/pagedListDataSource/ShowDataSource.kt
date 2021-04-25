@@ -36,10 +36,11 @@ class ShowDataSource(
             repository.showSeach(search,
                     success = { result ->
                 //liveData.value = Resource(data = result)
+                        val listShow = result?.map { it.show }!!.toMutableList()
                 callback.onResult(
-                        result!!,  // List of data items
+                        listShow,  // List of data items
                         0,  // Position of first item
-                        400,  // Total number of items that can be fetched from api
+                        listShow.size,  // Total number of items that can be fetched from api
                         null,  // Previous page. `null` if there's no previous page
                         page // Next Page (Used at the next request). Return `null` if this is the last page.
                 )
@@ -61,20 +62,6 @@ class ShowDataSource(
         if (search == ""){
 
             repository.getAllShow(page = page,
-                    success = { result ->
-                        //liveData.value = Resource(data = result)
-
-                        callback.onResult(
-                                result!!,  // List of data items
-                                // Next Page key (Used at the next request). Return `null` if this is the last page.
-                                page + 1
-                        )
-                    },
-                    failure = { result ->
-                        //liveData.value = Resource(data = null, error = result)
-                    })
-        } else {
-            repository.showSeach(search,
                     success = { result ->
                         //liveData.value = Resource(data = result)
 

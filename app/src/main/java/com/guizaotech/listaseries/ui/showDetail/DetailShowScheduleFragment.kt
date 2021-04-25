@@ -33,7 +33,7 @@ private val viewModel: DetailShowViewModel by activityViewModels()
     }
 
     private fun fillDataOnFragment() {
-        binding?.textViewTime?.text = show?.schedule?.time
+        binding?.textViewTime?.text = if (show?.schedule?.time != "") show?.schedule?.time else "Não foi encontrado cronograma para esse programa"
         binding?.textViewDays?.text = show?.schedule?.days?.joinToString(", ")
     }
 

@@ -10,6 +10,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_width="170dp"
             android:layout_height="234dp"
             android:layout_gravity="center"

@@ -38,7 +38,7 @@ private val viewModel: DetailShowViewModel by activityViewModels()
     }
 
     private fun fillDataOnFragment() {
-        binding!!.textViewSumary.text = Html.fromHtml(show!!.summary).toString()
+        binding!!.textViewSumary.text = if(show!!.summary != "") Html.fromHtml(show!!.summary).toString() else "Não foi encontrado resumo desse programa"
     }
 
     override fun onDestroy() {

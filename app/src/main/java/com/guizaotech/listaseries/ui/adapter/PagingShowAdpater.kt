@@ -67,7 +67,7 @@ class PagingShowAdpater(): PagedListAdapter<Show, PagingShowAdpater.ShowViewHold
         fun bindTo(show: Show?) {
             if (show != null) {
                 showItemBinding.textViewTitulo.text = show.name
-                showItemBinding.textViewGenres.text = show.genres.joinToString(", ")
+                showItemBinding.textViewGenres.text = show.genres?.joinToString(", ")
                 try {
                     if(show.image.original != ""){
                         Picasso.get().load(show.image.original)
