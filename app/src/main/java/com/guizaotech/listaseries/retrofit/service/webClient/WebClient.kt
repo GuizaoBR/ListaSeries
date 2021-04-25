@@ -1,6 +1,7 @@
 package com.guizaotech.listaseries.retrofit.service.webClient
 
 import com.guizaotech.listaseries.model.Episode
+import com.guizaotech.listaseries.model.SearchShow
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.retrofit.AppRetrofit
 import com.guizaotech.listaseries.retrofit.service.ApiService
@@ -77,7 +78,7 @@ class WebClient (
         )
     }
 
-    fun showSearch(showName: String, sucess: (listShow: List<Show>?) -> Unit, failure: (error: String?) -> Unit) {
+    fun showSearch(showName: String, sucess: (listShow: List<SearchShow>?) -> Unit, failure: (error: String?) -> Unit) {
         executeApi(
                 service.getShowsSearch(showName),
                 sucess,
