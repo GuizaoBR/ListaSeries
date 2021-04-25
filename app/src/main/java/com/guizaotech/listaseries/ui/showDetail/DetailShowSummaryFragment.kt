@@ -20,27 +20,30 @@ class DetailShowSummaryFragment : Fragment() {
     private var binding: FragmentDetailShowSummaryBinding? = null
 
 
-//    private val viewModel by lazy {
-//        val webClient = WebClient()
-//        val repository = Repository(webClient)
-//        val factory = DetailShowViewModelFactory(repository, this.requireActivity().application, showId)
-//        val provider = ViewModelProviders.of(this, factory)
-//        provider.get(DetailShowViewModel::class.java)
-//    }
+
 private val viewModel: DetailShowViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentDetailShowSummaryBinding.inflate(layoutInflater)
-        viewModel.show.observe(viewLifecycleOwner, Observer {
-            show = it
-            if (show != null) {
-               binding!!.textViewSumary.text = Html.fromHtml(show!!.summary).toString()
+        viewModel.show.observe(viewLifecycleOwner, Observer { result ->
+            result.data?.let {
+                show = it
+                fillDataOnFragment()
             }
         })
 
         return binding!!.root
+    }
+
+    private fun fillDataOnFragment() {
+        binding!!.textViewSumary.text = Html.fromHtml(show!!.summary).toString()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 

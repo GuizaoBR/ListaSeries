@@ -3,6 +3,7 @@ package com.guizaotech.listaseries.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.guizaotech.listaseries.model.Episode
+import com.guizaotech.listaseries.model.Resource
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
 
@@ -24,35 +25,35 @@ class Repository(
 
     }
 
-    fun getShow(id: Long): LiveData<Show?>{
-        val liveData: MutableLiveData<Show?> = MutableLiveData<Show?>()
+    fun getShow(id: Long): LiveData<Resource<Show?>>{
+        val liveData: MutableLiveData<Resource<Show?>> = MutableLiveData<Resource<Show?>>()
         webClient.getShow(id, success = {show ->
-            liveData.value = show
+            liveData.value = Resource(data = show)
 
         }, failure = {
-
+            liveData.value = Resource(data = null, error = it)
         })
         return liveData
     }
 
 
-    fun getEpisodes(idShow: Long): LiveData<List<Episode>?>{
-        val liveData: MutableLiveData<List<Episode>?> = MutableLiveData<List<Episode>?>()
+    fun getEpisodes(idShow: Long): LiveData<Resource<List<Episode>?>>{
+        val liveData: MutableLiveData<Resource<List<Episode>?>> = MutableLiveData<Resource<List<Episode>?>>()
         webClient.getEpisodes(idShow, success = {listEpisode ->
-            liveData.value = listEpisode
+            liveData.value = Resource(data = listEpisode)
 
-        }, failure = {
-
+        }, failure = { error ->
+            liveData.value = Resource(data = null, error = error )
         })
         return liveData
     }
 
-    fun getEpisode(id: Long): LiveData<Episode?> {
-        val liveData: MutableLiveData<Episode?> = MutableLiveData<Episode?>()
-        webClient.getEpisode(id, sucess = {episode ->
-            liveData.value = episode
+    fun getEpisode(id: Long): LiveData<Resource<Episode?>> {
+        val liveData: MutableLiveData<Resource<Episode?>> = MutableLiveData<Resource<Episode?>>()
+        webClient.getEpisode(id, sucess = { episode ->
+            liveData.value = Resource(data = episode)
         }, failure = {
-
+            liveData.value = Resource(data = null, error = it)
         })
         return  liveData
     }

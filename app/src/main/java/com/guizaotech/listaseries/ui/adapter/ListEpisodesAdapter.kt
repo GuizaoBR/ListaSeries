@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.guizaotech.listaseries.databinding.EpisodeItemBinding
 import com.guizaotech.listaseries.model.Episode
+import com.guizaotech.listaseries.ui.EPISODE_ID
 import com.guizaotech.listaseries.ui.episodeDetail.EpisodeDetailActivity
 import com.squareup.picasso.Picasso
 
 class ListEpisodesAdapter(
         private val episodes: List<Episode>
-        /*var onItemClickListener: (episode: Episode) -> Unit = {}*/): RecyclerView.Adapter<ListEpisodesAdapter.ListEpisodesViewHolder>() {
+        ): RecyclerView.Adapter<ListEpisodesAdapter.ListEpisodesViewHolder>() {
 
     class ListEpisodesViewHolder(private val binding: EpisodeItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -24,7 +25,7 @@ class ListEpisodesAdapter(
                 if (position != RecyclerView.NO_POSITION && ::episode.isInitialized ) {
                     val selctedEpisode: Episode =  episode
                     val intent = Intent(it.context, EpisodeDetailActivity::class.java)
-                    intent.putExtra("episodeId", selctedEpisode.id)
+                    intent.putExtra(EPISODE_ID, selctedEpisode.id)
                     it.context.startActivity(intent)
                 }
             }

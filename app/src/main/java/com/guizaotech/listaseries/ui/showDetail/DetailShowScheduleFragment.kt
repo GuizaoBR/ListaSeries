@@ -11,14 +11,10 @@ import com.guizaotech.listaseries.databinding.FragmentDetailShowScheduleBinding
 import com.guizaotech.listaseries.model.Show
 
 class DetailShowScheduleFragment : Fragment() {
-    private val showId: Long by lazy {
-        this.requireActivity().intent.getLongExtra("showId", 0)
-    }
+
     private var show: Show? = null
 
     private var binding: FragmentDetailShowScheduleBinding? = null
-
-
 
 private val viewModel: DetailShowViewModel by activityViewModels()
 
@@ -26,16 +22,24 @@ private val viewModel: DetailShowViewModel by activityViewModels()
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentDetailShowScheduleBinding.inflate(layoutInflater)
-        viewModel.show.observe(viewLifecycleOwner, Observer {
-            show = it
-            if (show != null) {
-               binding?.textViewTime?.text = show?.schedule?.time
-               binding?.textViewDays?.text = show?.schedule?.days?.joinToString(", ")
+        viewModel.show.observe(viewLifecycleOwner, Observer { result ->
+            result.data?.let {
+                show = it
+                fillDataOnFragment()
             }
         })
 
         return binding!!.root
     }
 
+    private fun fillDataOnFragment() {
+        binding?.textViewTime?.text = show?.schedule?.time
+        binding?.textViewDays?.text = show?.schedule?.days?.joinToString(", ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

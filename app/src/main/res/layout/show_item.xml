@@ -2,11 +2,6 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="show"
-            type="com.guizaotech.listaseries.model.Show" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="184dp"
@@ -47,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
-                    android:text="@{show.name}"
+                    android:text="Genres"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +60,8 @@
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_favorite_uncheck" />
+                    app:srcCompat="@drawable/ic_favorite_uncheck"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/textViewGenres"

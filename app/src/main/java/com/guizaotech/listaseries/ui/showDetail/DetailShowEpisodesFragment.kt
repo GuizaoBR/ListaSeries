@@ -16,11 +16,14 @@ import com.guizaotech.listaseries.databinding.FragmentDetailShowEpisodesBinding
 import com.guizaotech.listaseries.model.Episode
 import com.guizaotech.listaseries.repository.Repository
 import com.guizaotech.listaseries.retrofit.service.webClient.WebClient
+import com.guizaotech.listaseries.ui.MESSAGE_ERROR_GENERIC
+import com.guizaotech.listaseries.ui.SHOW_ID
 import com.guizaotech.listaseries.ui.adapter.ListEpisodesAdapter
+import com.guizaotech.listaseries.ui.extesion.showToastError
 
 class DetailShowEpisodesFragment : Fragment() {
     private val showId: Long by lazy {
-        this.requireActivity().intent.getLongExtra("showId", 0)
+        this.requireActivity().intent.getLongExtra(SHOW_ID, 0)
     }
     private var episodes: List<Episode>? = null
 
@@ -30,7 +33,7 @@ class DetailShowEpisodesFragment : Fragment() {
     private val viewModel by lazy {
         val webClient = WebClient()
         val repository = Repository(webClient)
-        val factory = DetailShowEpisodesViewModelFactory(repository, this.requireActivity().application, showId)
+        val factory = DetailShowEpisodesViewModelFactory(repository, showId)
         val provider = ViewModelProviders.of(this, factory)
         provider.get(DetailShowEpisodesViewModel::class.java)
     }
@@ -39,11 +42,17 @@ class DetailShowEpisodesFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = FragmentDetailShowEpisodesBinding.inflate(layoutInflater)
 
-        viewModel.episodes.observe(viewLifecycleOwner, Observer {
-            episodes = it
-            if (episodes != null) {
-                createSpinner()
-                createList()
+        viewModel.episodes.observe(viewLifecycleOwner, Observer { result ->
+            result.data?.let {
+                episodes = it
+                if (episodes != null) {
+                    createSpinner()
+                    createList()
+                }
+            }
+
+            result.error?.let {
+                showToastError(MESSAGE_ERROR_GENERIC)
             }
         })
 
@@ -83,6 +92,11 @@ class DetailShowEpisodesFragment : Fragment() {
         binding?.spinnerSeason?.adapter = spinnerAdapter
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 

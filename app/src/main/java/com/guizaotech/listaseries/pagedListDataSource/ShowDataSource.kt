@@ -7,7 +7,6 @@ import com.guizaotech.listaseries.repository.Repository
 
 class ShowDataSource(
         private val repository: Repository,
-        private val application: Application,
         private val search: String
 ):   PageKeyedDataSource<Int, Show>() {
 

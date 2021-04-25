@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.guizaotech.listaseries.model.Resource
 import com.guizaotech.listaseries.model.Show
 import com.guizaotech.listaseries.pagedListDataSource.ShowDataSourceFactory
 import com.guizaotech.listaseries.repository.Repository
@@ -21,7 +22,7 @@ class HomeViewModel(
     }
 
     fun getShows(search: String = ""): LiveData<PagedList<Show>>? {
-        val showFactory = ShowDataSourceFactory(repository, application, search)
+        val showFactory = ShowDataSourceFactory(repository, search)
 
         val config: PagedList.Config = PagedList.Config.Builder()
                 .setEnablePlaceholders(true)

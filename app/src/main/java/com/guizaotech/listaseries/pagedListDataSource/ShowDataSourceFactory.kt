@@ -8,7 +8,6 @@ import com.guizaotech.listaseries.repository.Repository
 
 class ShowDataSourceFactory(
         private val repository: Repository,
-        private val application: Application,
         private val search: String
 ): DataSource.Factory<Int, Show>() {
 
@@ -16,7 +15,7 @@ class ShowDataSourceFactory(
     private val mutableLiveData: MutableLiveData<ShowDataSource> =  MutableLiveData<ShowDataSource>()
 
     override fun create(): DataSource<Int, Show> {
-        showDataSource = ShowDataSource(repository, application, search)
+        showDataSource = ShowDataSource(repository, search)
         mutableLiveData.postValue(showDataSource!!)
         return showDataSource!!
     }
