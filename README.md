@@ -1,6 +1,6 @@
 # ListaSeries
 <h1>Desafio Processo Seletivo </h1>
-
+<h4>O aplicativo precisa de conexão de internet para funcionar</h4>
 <p>Primeira página chamada de home irá conter a lista de programas. </p>
 <img src="https://github.com/GuizaoBR/ListaSeries/blob/master/home.png" width="400" />
 <p>Nela você pode:</p>
